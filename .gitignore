@@ -1,0 +1,21 @@
+# System files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Node modules (if any)
+node_modules/
+
+# Build artifacts
+*.zip
+*.crx
+*.pem
+
+# IDE/Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log

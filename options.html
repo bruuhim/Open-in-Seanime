@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Open in Seanime Options</title>
+  <style>
+    body {
+      padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+      margin: 0;
+      background-color: #1a1a2e;
+      color: #eaeaea;
+      min-width: 400px;
+    }
+    h1 {
+      color: #2db039;
+      margin-bottom: 25px;
+    }
+    .setting {
+      margin: 15px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    label {
+      font-weight: 500;
+      color: #b0b0b0;
+    }
+    input[type="text"] {
+      padding: 10px 12px;
+      border: 1px solid #333;
+      border-radius: 6px;
+      background-color: #2a2a3e;
+      color: #eaeaea;
+      font-size: 14px;
+    }
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #2db039;
+    }
+    button {
+      padding: 10px 20px;
+      margin-top: 20px;
+      background-color: #2db039;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    button:hover {
+      background-color: #25913a;
+    }
+    #status {
+      margin-top: 15px;
+      color: #2db039;
+      font-weight: 500;
+    }
+    .preview {
+      margin-top: 20px;
+      padding: 12px;
+      background-color: #2a2a3e;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 13px;
+      color: #888;
+    }
+    .preview span {
+      color: #2db039;
+    }
+  </style>
+</head>
+<body>
+  <h1>Open in Seanime Settings</h1>
+
+  <div class="setting">
+    <label for="seanimeUrl">Seanime URL</label>
+    <input type="text" id="seanimeUrl" placeholder="http://127.0.0.1">
+  </div>
+
+  <div class="setting">
+    <label for="seanimePort">Port</label>
+    <input type="text" id="seanimePort" placeholder="43211">
+  </div>
+
+  <div class="preview">
+    Full URL: <span id="previewUrl">http://127.0.0.1:43211</span>/entry?id={ANILIST_ID}
+  </div>
+
+  <button id="save">Save Settings</button>
+  <div id="status"></div>
+
+  <script src="options.js"></script>
+</body>
+</html>
