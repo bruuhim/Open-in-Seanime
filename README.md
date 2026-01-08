@@ -5,6 +5,12 @@ A Chrome/Edge extension that adds a native **"Open in Seanime"** button to MyAni
 ![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-green?logo=googlechrome)
 ![Edge Compatible](https://img.shields.io/badge/Edge-Compatible-blue?logo=microsoftedge)
 
+## Preview
+
+| MyAnimeList | AniList |
+|-------------|---------|
+| ![MAL Preview](assets/mal-preview.png) | ![AniList Preview](assets/anilist-preview.png) |
+
 ## Features
 
 - 🔗 **One-click access** — Open any anime directly in your local Seanime instance
