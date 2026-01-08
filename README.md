@@ -9,7 +9,7 @@ A Chrome/Edge extension that adds a native **"Open in Seanime"** button to MyAni
 
 | MyAnimeList | AniList |
 |-------------|---------|
-| ![MAL Preview](assets/mal-preview.png) | ![AniList Preview](assets/anilist-preview.png) |
+| ![MAL Preview](assets/preview-mal.png) | ![AniList Preview](assets/preview-anilist.png) |
 
 ## Features
 
