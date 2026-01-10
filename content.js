@@ -1,18 +1,33 @@
 // ============================================
-// Open in Seanime - Content Script
+// Open in Seanime - Content Script v1.1.0
 // Adds native button to MAL and AniList pages
+// Supports both anime and manga
 // ============================================
 
 const BUTTON_CLASS = 'seanime-btn';
 
 // ============================================
+// Media Type Detection
+// ============================================
+
+function getMediaType() {
+  const path = window.location.pathname;
+  if (path.includes('/manga/')) {
+    return 'manga';
+  }
+  return 'anime';
+}
+
+// ============================================
 // AniList API Query
 // ============================================
 
-async function fetchAniListId(malId) {
+async function fetchAniListId(malId, mediaType) {
+  const type = mediaType === 'manga' ? 'MANGA' : 'ANIME';
+  
   const query = `
-    query ($malId: Int) {
-      Media(idMal: $malId, type: ANIME) {
+    query ($malId: Int, $type: MediaType) {
+      Media(idMal: $malId, type: $type) {
         id
       }
     }
@@ -26,12 +41,23 @@ async function fetchAniListId(malId) {
     },
     body: JSON.stringify({
       query: query,
-      variables: { malId: malId }
+      variables: { malId: malId, type: type }
     })
   });
 
   const data = await response.json();
   return data?.data?.Media?.id || null;
+}
+
+// ============================================
+// Helper: Build Seanime URL based on media type
+// ============================================
+
+function buildSeanimeUrl(seanimeHost, aniListId, mediaType) {
+  if (mediaType === 'manga') {
+    return `${seanimeHost}/manga/entry?id=${aniListId}`;
+  }
+  return `${seanimeHost}/entry?id=${aniListId}`;
 }
 
 // ============================================
@@ -71,7 +97,7 @@ function awaitLoadOf(selector, text, callback) {
 // Button Creation - MAL
 // ============================================
 
-function createMALButton(aniListId, seanimeUrl, isError = false) {
+function createMALButton(aniListId, seanimeUrl, mediaType, isError = false) {
   // Remove existing button if any
   document.querySelectorAll(`.${BUTTON_CLASS}`).forEach(el => el.remove());
 
@@ -98,7 +124,7 @@ function createMALButton(aniListId, seanimeUrl, isError = false) {
   btn.style.textDecoration = 'none';
 
   if (!isError) {
-    btn.href = `${seanimeUrl}/entry?id=${aniListId}`;
+    btn.href = buildSeanimeUrl(seanimeUrl, aniListId, mediaType);
   } else {
     btn.style.opacity = '0.5';
     btn.style.cursor = 'not-allowed';
@@ -112,7 +138,7 @@ function createMALButton(aniListId, seanimeUrl, isError = false) {
 // Button Creation - AniList
 // ============================================
 
-function createAniListButton(aniListId, seanimeUrl, isError = false) {
+function createAniListButton(aniListId, seanimeUrl, mediaType, isError = false) {
   // Remove existing button if any
   document.querySelectorAll(`.${BUTTON_CLASS}`).forEach(el => el.remove());
 
@@ -140,7 +166,7 @@ function createAniListButton(aniListId, seanimeUrl, isError = false) {
   btn.style.color = 'rgb(var(--color-white))';
 
   if (!isError) {
-    btn.href = `${seanimeUrl}/entry?id=${aniListId}`;
+    btn.href = buildSeanimeUrl(seanimeUrl, aniListId, mediaType);
   } else {
     btn.style.opacity = '0.5';
     btn.style.cursor = 'not-allowed';
@@ -155,16 +181,17 @@ function createAniListButton(aniListId, seanimeUrl, isError = false) {
 // ============================================
 
 async function initMAL() {
-  const malIdRegex = /\/anime\/(\d+)/;
-  const match = window.location.pathname.match(malIdRegex);
+  const mediaType = getMediaType();
+  const idRegex = mediaType === 'manga' ? /\/manga\/(\d+)/ : /\/anime\/(\d+)/;
+  const match = window.location.pathname.match(idRegex);
 
   if (!match) {
-    console.log('Open in Seanime: No MAL ID found in URL');
+    console.log(`Open in Seanime: No MAL ${mediaType} ID found in URL`);
     return;
   }
 
   const malId = parseInt(match[1], 10);
-  console.log('Open in Seanime: Found MAL ID:', malId);
+  console.log(`Open in Seanime: Found MAL ${mediaType} ID:`, malId);
 
   const settings = await chrome.storage.sync.get({
     seanimeUrl: 'http://127.0.0.1',
@@ -173,34 +200,36 @@ async function initMAL() {
   const seanimeUrl = `${settings.seanimeUrl}:${settings.seanimePort}`;
 
   try {
-    const aniListId = await fetchAniListId(malId);
+    const aniListId = await fetchAniListId(malId, mediaType);
 
     if (aniListId) {
       console.log('Open in Seanime: Found AniList ID:', aniListId);
-      createMALButton(aniListId, seanimeUrl);
+      createMALButton(aniListId, seanimeUrl, mediaType);
     } else {
       console.log('Open in Seanime: AniList ID not found');
-      createMALButton(null, null, true);
+      createMALButton(null, null, mediaType, true);
     }
   } catch (error) {
     console.error('Open in Seanime: Error fetching AniList ID:', error);
-    createMALButton(null, null, true);
+    createMALButton(null, null, mediaType, true);
   }
 }
 
 async function initAniList() {
+  const mediaType = getMediaType();
+  
   // Wait for sidebar to load (AniList is a SPA)
   awaitLoadOf('.sidebar .type', 'Romaji', async () => {
-    const aniListIdRegex = /\/anime\/(\d+)/;
-    const match = window.location.pathname.match(aniListIdRegex);
+    const idRegex = mediaType === 'manga' ? /\/manga\/(\d+)/ : /\/anime\/(\d+)/;
+    const match = window.location.pathname.match(idRegex);
 
     if (!match) {
-      console.log('Open in Seanime: No AniList ID found in URL');
+      console.log(`Open in Seanime: No AniList ${mediaType} ID found in URL`);
       return;
     }
 
     const aniListId = parseInt(match[1], 10);
-    console.log('Open in Seanime: Found AniList ID:', aniListId);
+    console.log(`Open in Seanime: Found AniList ${mediaType} ID:`, aniListId);
 
     const settings = await chrome.storage.sync.get({
       seanimeUrl: 'http://127.0.0.1',
@@ -208,7 +237,7 @@ async function initAniList() {
     });
     const seanimeUrl = `${settings.seanimeUrl}:${settings.seanimePort}`;
 
-    createAniListButton(aniListId, seanimeUrl);
+    createAniListButton(aniListId, seanimeUrl, mediaType);
   });
 }
 

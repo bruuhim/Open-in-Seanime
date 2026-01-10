@@ -1,6 +1,6 @@
 # Open in Seanime
 
-A Chrome/Edge extension that adds a native **"Open in Seanime"** button to MyAnimeList and AniList anime pages.
+A Chrome/Edge extension that adds a native **"Open in Seanime"** button to MyAnimeList and AniList anime and manga pages.
 
 ![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-green?logo=googlechrome)
 ![Edge Compatible](https://img.shields.io/badge/Edge-Compatible-blue?logo=microsoftedge)
@@ -13,7 +13,7 @@ A Chrome/Edge extension that adds a native **"Open in Seanime"** button to MyAni
 
 ## Features
 
-- 🔗 **One-click access** — Open any anime directly in your local Seanime instance
+- 🔗 **One-click access** — Open any anime or manga directly in your local Seanime instance
 - 🔄 **Automatic ID conversion** — Converts MAL IDs to AniList IDs using the AniList GraphQL API
 - 🌐 **Multi-site support** — Works on both MyAnimeList and AniList
 - 🎨 **Native integration** — Button styling matches each site's theme seamlessly
@@ -44,16 +44,16 @@ A Chrome/Edge extension that adds a native **"Open in Seanime"** button to MyAni
 
 ## Usage
 
-1. Navigate to any anime page on:
-   - MyAnimeList: `https://myanimelist.net/anime/...`
-   - AniList: `https://anilist.co/anime/...`
+1. Navigate to any anime or manga page on:
+   - MyAnimeList: `https://myanimelist.net/anime/...` or `https://myanimelist.net/manga/...`
+   - AniList: `https://anilist.co/anime/...` or `https://anilist.co/manga/...`
 2. Look for the **"Open in Seanime"** button in the sidebar
-3. Click to open the anime in your Seanime instance
+3. Click to open the entry in your Seanime instance
 
 ## How It Works
 
 ```
-MAL Page → Extract MAL ID → Query AniList API → Get AniList ID → Open Seanime
+MAL Page → Extract MAL ID → Query AniList API (Anime/Manga) → Get AniList ID → Open Seanime
 AniList Page → Extract AniList ID directly → Open Seanime
 ```
 
