@@ -24,16 +24,29 @@ A Chrome/Edge extension that adds a native **"Open in Seanime"** button to MyAni
 ### From Source (Developer Mode)
 
 1. Download or clone this repository
-2. Open Chrome/Edge and navigate to `chrome://extensions`
-3. Enable **Developer mode** (toggle in top-right corner)
-4. Click **Load unpacked**
-5. Select the `Open in Seanime` folder
+2. **For Chrome/Edge**: 
+   - Rename `manifest.chrome.json` to `manifest.json` (replacing the default one) OR use the build script.
+3. Open browser and navigate to `chrome://extensions` (Chrome/Edge) or `about:debugging` (Firefox)
+4. Click **Load unpacked** (Chrome) or **Load Temporary Add-on...** (Firefox)
+5. Select the `Open in Seanime` folder (select `manifest.json` for Firefox)
 
-### From Release
+### Building Packages
 
-1. Download the latest `open-in-seanime.zip` from [Releases](../../releases)
-2. Extract the zip file
-3. Follow steps 2-5 above
+This repository contains a `build.py` script to generate browser-specific zip files for distribution.
+
+1. Ensure you have Python installed.
+2. Run: `python build.py`
+3. This will generate:
+   - `open-in-seanime-firefox.zip` (Uses default `manifest.json`)
+   - `open-in-seanime-chrome.zip` (Uses `manifest.chrome.json`)
+
+## Browser Compatibility
+
+| Browser | Manifest File | Background Type |
+|---------|---------------|-----------------|
+| **Firefox** | `manifest.json` (Default) | Background Script |
+| **Chrome/Edge** | `manifest.chrome.json` | Service Worker |
+
 
 ## Configuration
 

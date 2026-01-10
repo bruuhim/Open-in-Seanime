@@ -4,6 +4,9 @@
 // Supports both anime and manga
 // ============================================
 
+const browserAPI = typeof browser !== 'undefined' ? browser : chrome;
+// ============================================
+
 const BUTTON_CLASS = 'seanime-btn';
 
 // ============================================
@@ -23,30 +26,19 @@ function getMediaType() {
 // ============================================
 
 async function fetchAniListId(malId, mediaType) {
-  const type = mediaType === 'manga' ? 'MANGA' : 'ANIME';
-  
-  const query = `
-    query ($malId: Int, $type: MediaType) {
-      Media(idMal: $malId, type: $type) {
-        id
+  return new Promise((resolve) => {
+    chrome.runtime.sendMessage(
+      { type: 'FETCH_ANILIST_ID', malId: malId, mediaType: mediaType },
+      (response) => {
+        if (chrome.runtime.lastError) {
+          console.error('Open in Seanime: Message error:', chrome.runtime.lastError);
+          resolve(null);
+        } else {
+          resolve(response?.id || null);
+        }
       }
-    }
-  `;
-
-  const response = await fetch('https://graphql.anilist.co', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
-    body: JSON.stringify({
-      query: query,
-      variables: { malId: malId, type: type }
-    })
+    );
   });
-
-  const data = await response.json();
-  return data?.data?.Media?.id || null;
 }
 
 // ============================================
@@ -193,7 +185,7 @@ async function initMAL() {
   const malId = parseInt(match[1], 10);
   console.log(`Open in Seanime: Found MAL ${mediaType} ID:`, malId);
 
-  const settings = await chrome.storage.sync.get({
+  const settings = await browserAPI.storage.sync.get({
     seanimeUrl: 'http://127.0.0.1',
     seanimePort: '43211'
   });
@@ -217,7 +209,7 @@ async function initMAL() {
 
 async function initAniList() {
   const mediaType = getMediaType();
-  
+
   // Wait for sidebar to load (AniList is a SPA)
   awaitLoadOf('.sidebar .type', 'Romaji', async () => {
     const idRegex = mediaType === 'manga' ? /\/manga\/(\d+)/ : /\/anime\/(\d+)/;
@@ -231,7 +223,7 @@ async function initAniList() {
     const aniListId = parseInt(match[1], 10);
     console.log(`Open in Seanime: Found AniList ${mediaType} ID:`, aniListId);
 
-    const settings = await chrome.storage.sync.get({
+    const settings = await browserAPI.storage.sync.get({
       seanimeUrl: 'http://127.0.0.1',
       seanimePort: '43211'
     });

@@ -7,6 +7,9 @@
     "storage",
     "activeTab"
   ],
+  "host_permissions": [
+    "https://graphql.anilist.co/"
+  ],
   "content_scripts": [
     {
       "matches": [
@@ -22,7 +25,11 @@
     }
   ],
   "icons": {
-    "96": "icons/seanime.png"
+    "32": "icons/seanime-32.png",
+    "48": "icons/seanime-48.png",
+    "64": "icons/seanime-64.png",
+    "96": "icons/seanime-96.png",
+    "128": "icons/seanime-128.png"
   },
   "web_accessible_resources": [
     {
@@ -34,8 +41,25 @@
       ]
     }
   ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
   "options_ui": {
     "page": "options.html",
     "open_in_tab": true
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "open-in-seanime@bruuhim",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ],
+        "optional": []
+      }
+    }
   }
 }

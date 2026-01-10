@@ -1,0 +1,51 @@
+{
+    "manifest_version": 3,
+    "name": "Open in Seanime",
+    "version": "1.1.0",
+    "description": "Adds a button to MyAnimeList and AniList anime/manga pages to open them in your local Seanime instance.",
+    "permissions": [
+        "storage",
+        "activeTab"
+    ],
+    "host_permissions": [
+        "https://graphql.anilist.co/"
+    ],
+    "content_scripts": [
+        {
+            "matches": [
+                "https://myanimelist.net/anime/*",
+                "https://myanimelist.net/manga/*",
+                "https://anilist.co/anime/*",
+                "https://anilist.co/manga/*"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "run_at": "document_end"
+        }
+    ],
+    "icons": {
+        "32": "icons/seanime-32.png",
+        "48": "icons/seanime-48.png",
+        "64": "icons/seanime-64.png",
+        "96": "icons/seanime-96.png",
+        "128": "icons/seanime-128.png"
+    },
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "icons/seanime.png"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "options_ui": {
+        "page": "options.html",
+        "open_in_tab": true
+    }
+}

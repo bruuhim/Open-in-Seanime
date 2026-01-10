@@ -1,8 +1,10 @@
+const browserAPI = typeof browser !== 'undefined' ? browser : chrome;
+
 function saveOptions() {
     const seanimeUrl = document.querySelector('#seanimeUrl').value.trim() || 'http://127.0.0.1';
     const seanimePort = document.querySelector('#seanimePort').value.trim() || '43211';
 
-    chrome.storage.sync.set({
+    browserAPI.storage.sync.set({
         seanimeUrl: seanimeUrl,
         seanimePort: seanimePort
     });
@@ -19,7 +21,7 @@ function updatePreview() {
 }
 
 function restoreOptions() {
-    chrome.storage.sync.get({
+    browserAPI.storage.sync.get({
         seanimeUrl: 'http://127.0.0.1',
         seanimePort: '43211'
     }, (result) => {
