@@ -8,6 +8,9 @@
 // @match        *://*.myanimelist.net/manga/*
 // @match        *://*.anilist.co/anime/*
 // @match        *://*.anilist.co/manga/*
+// @icon         https://raw.githubusercontent.com/bruuhim/Open-in-Seanime/main/icons/seanime.png
+// @homepageURL  https://github.com/bruuhim/Open-in-Seanime
+// @supportURL   https://github.com/bruuhim/Open-in-Seanime/issues
 // @grant        GM.getValue
 // @grant        GM.setValue
 // @grant        GM.registerMenuCommand

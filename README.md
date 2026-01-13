@@ -1,9 +1,11 @@
 # Open in Seanime
 
-A Chrome/Edge extension that adds a native **"Open in Seanime"** button to MyAnimeList and AniList anime and manga pages.
+A browser extension and userscript that adds a native **"Open in Seanime"** button to MyAnimeList and AniList anime and manga pages.
 
 ![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-green?logo=googlechrome)
 ![Edge Compatible](https://img.shields.io/badge/Edge-Compatible-blue?logo=microsoftedge)
+![Firefox Compatible](https://img.shields.io/badge/Firefox-Compatible-orange?logo=firefox)
+![Userscript](https://img.shields.io/badge/Userscript-Tampermonkey-blue)
 
 ## Preview
 
@@ -59,10 +61,19 @@ If you prefer to use a userscript instead of the browser extension:
 
 ## Configuration
 
+### Browser Extension
+
 1. Right-click the extension icon → **Options** (or go to `chrome://extensions` → Open in Seanime → Details → Extension options)
 2. Set your Seanime URL (default: `http://127.0.0.1`)
 3. Set your Seanime Port (default: `43211`)
 4. Click **Save Settings**
+
+### Userscript
+
+1. Click the Tampermonkey/Violentmonkey icon in your browser
+2. Select **Open in Seanime Settings** from the menu
+3. Configure your Seanime URL and port
+4. Click **Save and Close**
 
 ## Usage
 
