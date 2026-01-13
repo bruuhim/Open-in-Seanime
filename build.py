@@ -10,6 +10,7 @@ def create_zip():
         "options.html",
         "LICENSE",
         "README.md",
+        "open-in-seanime.user.js",
         "icons/seanime-32.png",
         "icons/seanime-48.png",
         "icons/seanime-64.png",

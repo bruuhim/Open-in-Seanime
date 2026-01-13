@@ -47,6 +47,15 @@ This repository contains a `build.py` script to generate browser-specific zip fi
 | **Firefox** | `manifest.json` (Default) | Background Script |
 | **Chrome/Edge** | `manifest.chrome.json` | Service Worker |
 
+### Userscript Installation (Tampermonkey/Violentmonkey)
+
+If you prefer to use a userscript instead of the browser extension:
+
+1. Install [Tampermonkey](https://www.tampermonkey.net/) or [Violentmonkey](https://violentmonkey.github.io/)
+2. Click on [open-in-seanime.user.js](open-in-seanime.user.js) in this repository
+3. Click **Raw** button on GitHub - your userscript manager will prompt to install
+4. Configure settings via the userscript manager menu (default: `http://127.0.0.1:43211`)
+
 
 ## Configuration
 

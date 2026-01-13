@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Open in Seanime",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "description": "Adds a button to MyAnimeList and AniList anime/manga pages to open them in your local Seanime instance.",
     "permissions": [
         "storage",

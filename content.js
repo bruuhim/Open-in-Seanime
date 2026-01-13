@@ -156,6 +156,7 @@ function createAniListButton(aniListId, seanimeUrl, mediaType, isError = false) 
   btn.style.marginBottom = '20px';
   btn.style.background = 'rgb(var(--color-blue))';
   btn.style.color = 'rgb(var(--color-white))';
+  btn.style.fontFamily = 'Overpass, -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif';
 
   if (!isError) {
     btn.href = buildSeanimeUrl(seanimeUrl, aniListId, mediaType);
